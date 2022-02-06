@@ -1,9 +1,8 @@
 import pandas as pd
-import numpy as np
 import requests
 import urllib
 import enum
-from bs4 import BeautifulSoup4
+from bs4 import BeautifulSoup
 import re
 
 class TradeType(enum.Enum):
@@ -58,13 +57,15 @@ def generate_params_from_url(url):
 if __name__ == '__main__':
     for product in ['soybeans', 'crude petroleum', 'raw copper']:
         
-        hs4 = search_bs4(product)
+        hs4 = search_hs4(product)
         print(product, hs4)
         
         import_df = get_countries_by_product( TradeType.IMPORT, hs4 = hs4, year=2020 )
         export_df = get_countries_by_product( TradeType.EXPORT, hs4 = hs4, year=2020 )
         
-        print(import_df)
-        print(export_df)
+        print('IMPORTS')
+        print(import_df.head())
+        print('EXPORTS')
+        print(export_df.head())
         
         print()
