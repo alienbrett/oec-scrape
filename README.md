@@ -12,8 +12,8 @@ Grab import/export data by country, or search for [HS4 codes](https://www.trade.
 Usage:
 ```python
 from oec_scrape import search_hs4, TradeType, get_countries_by_product
-
-hs4 = search_hs4('soybeans')
+product = 'soybeans'
+hs4 = search_hs4(product)
 print(product, hs4)
 
 import_df = get_countries_by_product( TradeType.IMPORT, hs4 = hs4, year=2020 )
