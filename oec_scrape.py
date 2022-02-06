@@ -33,12 +33,12 @@ def get_countries_by_product( type_:TradeType, hs4:int, year=2019 ):
     res_df['Trade Percent'] = res_df['Trade Value'] / trade_sum
     return res_df
  
-def search_hs4( query:str ):
+def search_hs4( query:str, html_parser='lxml' ):
     query = '-'.join(query.split(' '))
     hs4 = None
     try:
         res = requests.get('https://oec.world/en/profile/hs92/{}'.format(query))
-        soup = BeautifulSoup(res.text)
+        soup = BeautifulSoup(res.text, features=html_parser)
         r = re.compile(r'Explore Visualizations')
         hs4 = int([x['href'].split('/')[8] for x in soup.find_all('a', text= r) ][0])
     except:
